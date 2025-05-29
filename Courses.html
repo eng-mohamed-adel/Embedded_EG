@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Embedded EG Courses</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Open Graph Meta Tags -->
+<meta property="og:title" content="Embedded EG" />
+<meta property="og:description" content="نطور مهارات اطفال المستقبل 🚀💻
+تعليم البرمجة و الدوائر الالكترونية و صناعة الروبوتات للأطفال بطريقة ممتعة و تفاعلية 🎓💡
+انضموا لينا و علموا اولادكم المستقبل 🤖" />
+<meta property="og:image" content="./link logo.png" />
+<meta property="og:url" content="https://example.com/your-page" />
+<meta property="og:type" content="website" />
+
+<!-- Twitter Card (اختياري لدعم تويتر بشكل أفضل) -->
+<meta name="twitter:card" content="Embedded EG" />
+<meta name="twitter:title" content="@EMBEDDED_EG" />
+<meta name="twitter:description" content="نطور مهارات اطفال المستقبل 🚀💻
+تعليم البرمجة و الدوائر الالكترونية و صناعة الروبوتات للأطفال بطريقة ممتعة و تفاعلية 🎓💡
+انضموا لينا و علموا اولادكم المستقبل 🤖" />
+<meta name="twitter:image" content="./link logo.png" />
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./fontawesome.min.css">
+<link rel="icon" href="./Logo(EMBEDDED).png">
+    <style>
+        /* === Base Styles === */
+        :root {
+          /* Control card size from one place */
+          --card-max: 400px;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+            background: linear-gradient(to bottom, #13459e, #030b19);
+
+          overflow-x: hidden; /* Prevent horizontal scrolling */
+          font-family: "Roboto", sans-serif;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+        .wrapper {
+          position: relative;
+          top: 40px;
+          color: #fff;
+  /*This part is important for centering*/
+  display: grid;
+  place-items: center;
+}
+
+.typing-demo {
+  width: 19ch;
+  animation: typing 2s steps(19), blink .5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 2em;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+    
+@keyframes blink {
+  50% {
+    border-color: transparent
+  }
+}
+
+
+        /* Carousel wrapper */
+        .carousel {
+          height: 60vh;               /* Flexible height */
+          max-height: 600px;          /* Prevent stretching on very tall screens */
+          perspective: 450px;
+          margin-top: 5vh;            /* Scales with viewport */
+        }
+
+        /* Individual slide */
+        .carousel .carousel-item {
+          width: 28vw;                /* Relative sizing */
+          height: 28vw;
+          max-width: var(--card-max);
+          max-height: var(--card-max);
+          box-shadow: 0 0 40px #61dafb, 0 0 40px #61dafb, 0 0 40px #61dafb;
+          animation: glow 10s infinite alternate;
+          border-radius: 15px;
+        }
+
+        /* Glowing effect */
+        @keyframes glow {
+          to {
+            box-shadow: 0 0 50px #61dafb, 0 0 50px #61dafb, 0 0 50px #61dafb;
+          }
+        }
+
+        /* Card container */
+        .box {
+          border-radius: 10px;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
+          width: 100%;
+          height: 100%;
+        }
+
+        .box img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;          /* Keep aspect ratio, crop if needed */
+          border-radius: 10px;
+          display: block;
+          transition: transform 0.5s;
+        }
+
+        /* Overlay */
+        .overlay {
+          width: 100%;
+          height: 0;
+          background: linear-gradient(transparent, #1c1c1c 58%);
+          border-radius: 10px;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          padding: 0 40px;
+          text-align: center;
+          font-size: 1rem;
+          transition: height 0.5s ease;
+        }
+
+        .overlay h3 {
+          font-weight: 500;
+          margin-bottom: 5px;
+          margin-top: 65%;
+          font-family: "Bebas Neue", sans-serif;
+          font-size: 2rem;
+          letter-spacing: 2px;
+          color: #fff;
+        }
+
+        .overlay a {
+          margin-top: 10px;
+          color: #262626;
+          text-decoration: none;
+          font-size: 0.9rem;
+          background: #fff;
+          border-radius: 50px;
+          text-align: center;
+          padding: 6px 20px;
+          margin-bottom: 30px;
+        }
+
+        /* Hover interactions */
+        .box:hover img {
+          transform: scale(1.05);
+        }
+
+        .box:hover .overlay {
+          height: 100%;
+        }
+
+        /* === Responsive Tweaks === */
+        @media (max-width: 992px) {
+          /* Medium screens (tablets) */
+          .carousel .carousel-item {
+            width: 40vw;
+            height: 40vw;
+          }
+        }
+
+        @media (max-width: 600px) {
+          /* Small screens (phones) */
+          .carousel {
+            height: 75vh;
+            margin-top: 8vh;
+          }
+
+          .carousel .carousel-item {
+            width: 80vw;   /* Nearly full‑width on phones */
+            height: 80vw;
+          }
+
+          .overlay {
+            padding: 0 20px;
+            font-size: 0.8rem;
+          }
+
+          .overlay h3 {
+            margin-top: 50%;
+            font-size: 1.5rem;
+          }
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+footer {
+  position: relative;
+  width: 100%;
+  background: #3586ff;
+  min-height: 80px;
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}
+
+footer .social_icon, footer .menu {
+  position: relative;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  margin: 10px 0;
+}
+
+footer .social_icon li, footer .menu li {
+  list-style: none;
+}
+footer .social_icon li a {
+  font-size: 2em;
+  color: #ccc;
+  margin: 0 10px;
+  display: inline-block;
+  transition: 0.5s;
+}
+footer .social_icon li a:hover {
+  transform: translateY(-15px);
+  color: blue;
+}
+
+footer .menu li a {
+  font-size: 1.2em;
+  color: #ccc;
+  margin: 0 10px;
+  display: inline-block;
+  transition: 0.5s;
+  text-decoration: none;
+  opacity: 0.75;
+}
+footer .menu li a:hover {
+  opacity: 1;
+  color: #fff;
+}
+p {
+  color : #eee;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+/*wave and animation*/
+footer .wave {
+  position: absolute;
+  top: -85px;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background: url(https://i.ibb.co/rZt4Nhg/wave.png);
+  background-size: 1000px 100px;
+}
+
+footer .wave#wave1 {
+  z-index: 1000;
+  opacity: 1;
+  bottom: 0;
+  animation: animateWave 4s linear infinite;
+}
+
+footer .wave#wave2 {
+  z-index: 999;
+  opacity: 0.5;
+  bottom: 10px;
+  animation: animateWave_02 4s linear infinite;
+}
+footer .wave#wave3 {
+  z-index: 1000;
+  opacity: 0.2;
+  bottom: 0;
+  animation: animateWave 3s linear infinite;
+}
+
+footer .wave#wave4 {
+  z-index: 999;
+  opacity: 0.7;
+  bottom: 20px;
+  animation: animateWave_02 3s linear infinite;
+}
+
+@keyframes animateWave {
+  0%{
+    background-position-x: 1000px; 
+  }
+  100%{
+    background-position-x: 0px; 
+  }
+}
+
+@keyframes animateWave_02 {
+  0%{
+    background-position-x: 0px; 
+  }
+  100%{
+    background-position-x: 1000px; 
+  }
+}
+
+    </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="typing-demo">
+      Embedded EG <span class="fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;">Courses</span>.
+    </div>
+</div>
+  <!-- Carousel -->
+  <div class="carousel">
+    <div class="carousel-item">
+      <div class="box">
+        <img src="./2.png" alt="Pink Flowers" />
+        <div class="overlay">
+          <h3>Arduino Course For Kids</h3>
+          <p style="direction: rtl;">
+         <br> كورس الاردوينو للاطفال 🤖
+<br>- علم ابنك البرمجة و الدوائر الالكترونية و صناعة الروبوتات 💻
+<br>- مناسب من عمر ٨ سنوات 🧒
+<br>- يشترط معرفة التعامل مع اساسيات الكمبيوتر 💻
+<br>- تواصل معانا دلوقتي للاشتراك 📞
+          </p>
+          <a href="https://wa.me/+201022613174 ">Read More</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+       <div class="box">
+        <img src="./3.png" alt="Pink Flowers" />
+        <div class="overlay">
+          <h3>HTML&CSS For Kids</h3>
+          <p style="direction: rtl;">
+<br>علم ابنك تصميم المواقع الان 🌐
+<br>- تعلم لغة Html و Css 📚
+<br>- مناسب من عمر ٧ سنوات 🧒
+<br>- يشترط معرفة التعامل مع اساسيات الكمبيوتر 💻
+- تواصل معانا دلوقتي للاشتراك 📞          </p>
+          <a href="https://wa.me/+201022613174 ">Read More</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="box">
+        <img src="./4.png" alt="Pink Flowers" />
+        <div class="overlay">
+          <h3>Bootstrap For Kids</h3>
+          <p style="direction: rtl;">
+<br>علم ابنك Bootstrap الان 🚀
+<br>- تعلم ازاي ينشئ مواقع متوافقة مع جميع الشاشات 📱💻
+<br>- مناسب من عمر ٧ سنوات 🧒
+<br>- يشترط معرفة:
+<br>- لغة Html و Css 📚
+<br>- التعامل مع اساسيات الكمبيوتر 💻
+<br>- تواصل معانا دلوقتي للاشتراك 📞 </p>         
+<a href="https://wa.me/+201022613174 ">Read More</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="box">
+        <img src="./5.png" alt="Pink Flowers" />
+        <div class="overlay">
+          <h3>Comming Soon</h3>
+          
+          <a href="https://wa.me/+201022613174 ">Read More</a>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <!--ZG-FOOTER-->
+  <footer>
+  <div class="waves">
+    <div class="wave" id="wave1"></div>
+    <div class="wave" id="wave2"></div>
+    <div class="wave" id="wave3"></div>
+    <div class="wave" id="wave4"></div>
+  </div>
+  <ul class="social_icon">
+    <li><a href="https://www.facebook.com/share/1LXZ8p8D1Q/"><ion-icon name="logo-facebook"></ion-icon></a></li>
+    <li><a href="https://wa.me/+201022613174 "><ion-icon name="logo-whatsapp"></ion-icon></a></li>
+    <li><a href="https://www.tiktok.com/@embedded_eg?_t=ZS-8wlhPwncFQf&_r=1"><ion-icon name="logo-tiktok"></ion-icon></a></li>
+    <li><a href="https://www.instagram.com/embedded_eg?igsh=MWFwb24wNGQyNnBwcA=="><ion-icon name="logo-instagram"></ion-icon></a></li>
+  </ul>
+  
+  <ul class="menu">
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="https://wa.me/+201022613174 ">Contact US</a></li>
+  </ul>
+  <p class="fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;"> &copy 2025 Embedded_EG | All Rights Reserved</p>
+</footer>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <!-- jQuery & Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="./all.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      const $carousel = $(".carousel");
+      $carousel.carousel({ padding: 200 });
+
+      // Auto‑play helper
+      (function autoplay() {
+        $carousel.carousel("next");
+        setTimeout(autoplay, 6000);
+      })();
+    });
+  </script>
+</body>
+</html>
