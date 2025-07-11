@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- Default to English, JS will set based on localStorage -->
 <head>
     <meta charset="UTF-8">
-    <title>Embedded EG Courses</title>
+    <title data-key="pageTitle">Embedded EG Courses</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Open Graph Meta Tags -->
@@ -24,9 +24,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Updated Google Fonts links for Outfit (English) and Cairo (Arabic) -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Added 800 weight for Cairo for extra boldness if needed -->
 
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -42,7 +40,6 @@
             --color-text-muted: #A0A8B8; /* Muted text for secondary info */
             --color-card-bg: rgba(10, 20, 40, 0.7); /* Slightly transparent card background */
             --color-white: #FFFFFF; /* Pure white for highlights/hover */
-            /* Removed --color-footer-bg as footer will blend with body background */
 
             --font-heading: 'Outfit', sans-serif;
             --font-body: 'Outfit', sans-serif;
@@ -90,7 +87,6 @@
         body {
             font-family: var(--font-body);
             font-weight: 400;
-            /* Smooth gradient from dark to blue across the entire body */
             background: linear-gradient(to bottom, var(--color-background-dark) 0%, #030b19 50%, var(--color-primary-blue) 100%);
             color: var(--color-text-light);
             height: 100vh; /* Set body to full viewport height */
@@ -100,6 +96,18 @@
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            position: relative; /* Needed for particles.js */
+        }
+
+        /* Particles.js container */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Send to back */
+            background-color: transparent; /* Ensure it doesn't block body gradient */
         }
 
         /* Apply Arabic font where dir="rtl" is used */
@@ -114,6 +122,8 @@
             text-align: center;
             margin-bottom: var(--spacing-lg);
             flex-shrink: 0; /* Prevent header from shrinking */
+            z-index: 1; /* Ensure header is above particles */
+            position: relative; /* For language switcher positioning */
         }
 
         .wrapper {
@@ -142,18 +152,49 @@
             50% { border-color: transparent }
         }
 
+        /* Language Switcher */
+        .language-switcher {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            z-index: 100;
+        }
+
+        .language-switcher button {
+            background-color: rgba(18, 67, 156, 0.7);
+            color: var(--color-white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-pill);
+            padding: 0.5em 1em;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        .language-switcher button:hover {
+            background-color: var(--color-white);
+            color: var(--color-primary-blue);
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow-light);
+        }
+
         /* --- Main Content --- */
         .main-content {
-            flex-grow: 1; /* Allows main content to take all available space */
+            flex-grow: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-xxl); /* Increased padding-bottom for more space */
-            overflow: hidden; /* Ensure no internal scroll from main-content */
+            padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-xxl);
+            overflow: hidden;
+            z-index: 1; /* Ensure main content is above particles */
         }
 
         /* --- Carousel --- */
         .carousel-section {
+            position: relative;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -166,7 +207,7 @@
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            padding: var(--spacing-md);
+            padding: var(--spacing-md) var(--spacing-xxl);
             gap: var(--spacing-lg);
             max-width: 100vw;
             height: 55vh; /* Slightly increased carousel height */
@@ -226,6 +267,44 @@
         .carousel__item.is-active {
             transform: scale(1.03);
             box-shadow: var(--box-shadow-dark);
+        }
+
+        /* Carousel Navigation Buttons */
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(18, 67, 156, 0.7);
+            color: var(--color-white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            z-index: 50;
+            box-shadow: var(--box-shadow-light);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            opacity: 0.8; /* Slightly transparent by default */
+        }
+
+        .carousel-nav-btn:hover {
+            background-color: var(--color-white);
+            color: var(--color-primary-blue);
+            transform: translateY(-50%) scale(1.1); /* Slight scale effect */
+            box-shadow: var(--box-shadow-dark);
+            opacity: 1; /* Fully opaque on hover */
+        }
+
+        .carousel-nav-btn.prev-btn {
+            left: var(--spacing-md); /* Position from left */
+        }
+
+        .carousel-nav-btn.next-btn {
+            right: var(--spacing-md); /* Position from right */
         }
 
         /* --- Card --- */
@@ -368,6 +447,7 @@
             flex-shrink: 0;
             overflow: hidden;
             box-shadow: none; /* Removed box-shadow as it's now part of the body gradient */
+            z-index: 1; /* Ensure footer is above particles */
         }
 
         .footer__social-icons,
@@ -488,6 +568,30 @@
             .footer__copyright {
                 font-size: 1em;
             }
+
+            /* Responsive adjustments for buttons */
+            .carousel-nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+            .carousel-nav-btn.prev-btn {
+                left: var(--spacing-sm);
+            }
+            .carousel-nav-btn.next-btn {
+                right: var(--spacing-sm);
+            }
+            .carousel {
+                padding: var(--spacing-md) var(--spacing-xl);
+            }
+            .language-switcher {
+                top: var(--spacing-sm);
+                right: var(--spacing-sm);
+            }
+            .language-switcher button {
+                font-size: 0.9rem;
+                padding: 0.4em 0.8em;
+            }
         }
 
         @media (max-width: 600px) {
@@ -505,13 +609,13 @@
             }
 
             .main-content {
-                padding-bottom: var(--spacing-lg); /* Adjusted padding for small screens */
+                padding-bottom: var(--spacing-lg);
             }
 
             .carousel {
                 height: 60vh;
                 max-height: 400px;
-                padding: var(--spacing-sm);
+                padding: var(--spacing-sm) var(--spacing-lg);
                 gap: var(--spacing-md);
             }
 
@@ -556,24 +660,18 @@
                 font-size: 0.95em;
             }
 
-            /* Modal adjustments for small screens */
-            .modal-content {
-                padding: var(--spacing-md);
-                width: 95%;
-                max-width: unset;
+            /* Responsive adjustments for buttons on small screens */
+            .carousel-nav-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1em;
+                top: calc(50% + 20px);
             }
-            .modal-title {
-                font-size: 1.6rem;
+            .carousel-nav-btn.prev-btn {
+                left: var(--spacing-xs);
             }
-            .modal-description {
-                font-size: 1rem;
-            }
-            .modal-contact-button {
-                font-size: 1rem;
-                padding: 0.6em 1.5em;
-            }
-            .modal-close-button {
-                font-size: 2rem;
+            .carousel-nav-btn.next-btn {
+                right: var(--spacing-xs);
             }
         }
 
@@ -609,7 +707,7 @@
         }
 
         .modal-content {
-            background-color: var(--color-card-bg); /* Using semi-transparent card background */
+            background-color: var(--color-card-bg);
             color: var(--color-text-light);
             padding: var(--spacing-lg);
             border-radius: var(--border-radius-lg);
@@ -623,7 +721,7 @@
             max-height: 90vh;
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px); /* Stronger blur for modal */
+            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
 
@@ -639,7 +737,6 @@
             transform-origin: bottom left;
             transition: transform 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335), opacity 0.4s ease-out;
         }
-
 
         .modal-close-button {
             position: sticky;
@@ -671,7 +768,7 @@
         }
 
         .modal-description {
-            font-family: var(--font-body); /* Default for English */
+            font-family: var(--font-body);
             font-weight: 400;
             font-size: 1.15rem;
             line-height: 1.8;
@@ -683,8 +780,8 @@
 
         /* Specific style for Arabic text in modal description */
         .modal-description[dir="rtl"] {
-            font-family: var(--font-arabic); /* Apply Cairo for Arabic */
-            font-weight: 700; /* Make Arabic text bolder */
+            font-family: var(--font-arabic);
+            font-weight: 700;
         }
 
         /* Custom scrollbar for modal content */
@@ -702,7 +799,6 @@
             border-radius: var(--border-radius-pill);
             border: 2px solid var(--color-background-dark);
         }
-
 
         .modal-contact-button {
             display: inline-block;
@@ -752,27 +848,37 @@
     </style>
 </head>
 <body>
+    <!-- Particles.js container -->
+    <div id="particles-js"></div>
+
     <header class="header">
+        <div class="language-switcher">
+            <button id="language-toggle-btn">
+                <i class="fas fa-globe"></i>
+                <span data-key="langToggleText">English</span>
+            </button>
+        </div>
         <div class="wrapper">
             <h1 class="typing-demo">
-                Embedded EG <span class="fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;">Courses</span>.
+                <span data-key="headerPrefix">Embedded EG</span> <span class="fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;" data-key="headerSuffix">Courses</span>.
             </h1>
         </div>
     </header>
 
     <main class="main-content">
         <section class="carousel-section">
+            <button class="carousel-nav-btn prev-btn" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
             <div class="carousel">
                 <div class="carousel__item" data-course-id="arduino">
                     <div class="card">
                         <img src="./2.png" alt="Arduino Course for Kids" class="card__image" />
                         <div class="card__overlay">
-                            <h3 class="card__title">Arduino Course For Kids</h3>
-                            <p class="card__description" dir="rtl">
+                            <h3 class="card__title" data-key="arduinoTitle">Arduino Course For Kids</h3>
+                            <p class="card__description" data-key="arduinoShortDesc">
                                 <br>- علم ابنك البرمجة و الدوائر الالكترونية و صناعة الروبوتات 💻
                                 <br>- مناسب من عمر ٨ سنوات 🧒
                             </p>
-                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal" data-key="readMoreBtn">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -780,13 +886,13 @@
                     <div class="card">
                         <img src="./3.png" alt="HTML & CSS Course for Kids" class="card__image" />
                         <div class="card__overlay">
-                            <h3 class="card__title">HTML&CSS For Kids</h3>
-                            <p class="card__description" dir="rtl">
+                            <h3 class="card__title" data-key="htmlcssTitle">HTML&CSS For Kids</h3>
+                            <p class="card__description" data-key="htmlcssShortDesc">
                                 <br>علم ابنك تصميم المواقع الان 🌐
                                 <br>- تعلم لغة Html و Css 📚
                                 <br>- مناسب من عمر ٧ سنوات 🧒
                             </p>
-                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal" data-key="readMoreBtn">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -794,15 +900,15 @@
                     <div class="card">
                         <img src="./4.png" alt="Bootstrap Course for Kids" class="card__image" />
                         <div class="card__overlay">
-                            <h3 class="card__title">Bootstrap For Kids</h3>
-                            <p class="card__description" dir="rtl">
+                            <h3 class="card__title" data-key="bootstrapTitle">Bootstrap For Kids</h3>
+                            <p class="card__description" data-key="bootstrapShortDesc">
 
                                 <br>- تعلم ازاي ينشئ مواقع متوافقة مع جميع الشاشات 📱💻
                                 <br>- مناسب من عمر ٧ سنوات 🧒
                                 <br>- يشترط معرفة:
                                 <br>- لغة Html و Css 📚
                             </p>
-                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal" data-key="readMoreBtn">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -810,12 +916,12 @@
                     <div class="card">
                         <img src="https://i.ibb.co/M5yWgp7x/SCRATCH.png" alt="Scratch Course" class="card__image" />
                         <div class="card__overlay">
-                            <h3 class="card__title">Scratch</h3>
-                            <p class="card__description" dir="rtl">
+                            <h3 class="card__title" data-key="scratchTitle">Scratch</h3>
+                            <p class="card__description" data-key="scratchShortDesc">
                                 سكراتش هو برنامج ممتع لتعليم الأطفال أساسيات البرمجة من خلال تصميم ألعاب وقصص تفاعلية بطريقة سهلة ومرئية 🎮📖
                                 مناسب للأطفال من عمر 6 سنوات فما فوق!<br>
                             </p>
-                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal" data-key="readMoreBtn">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -823,11 +929,11 @@
                     <div class="card">
                         <img src="https://i.ibb.co/1fLzdHcP/PYTHON.png" alt="Python Course" class="card__image" />
                         <div class="card__overlay">
-                            <h3 class="card__title">Python</h3>
-                            <p class="card__description" dir="rtl">
+                            <h3 class="card__title" data-key="pythonTitle">Python</h3>
+                            <p class="card__description" data-key="pythonShortDesc">
                                 كورس بايثون للأطفال من سن 8 سنوات، بنبدأ من الأساسيات لحد الاحتراف بطريقة عملية وتفاعلية، مع متابعة خطوة بخطوة وتنفيذ مشاريع حقيقية
                             </p>
-                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal" data-key="readMoreBtn">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -835,12 +941,12 @@
                     <div class="card">
                         <img src="https://i.ibb.co/99WckMFj/ICDL.png" alt="ICDL Course" class="card__image" />
                         <div class="card__overlay">
-                            <h3 class="card__title">ICDL</h3>
-                            <p class="card__description" dir="rtl">
+                            <h3 class="card__title" data-key="icdlTitle">ICDL</h3>
+                            <p class="card__description" data-key="icdlShortDesc">
                                 كورس ICDL للأطفال! 🧑‍💻
                                 هنتعلم مع بعض باوربوينت، إكسل، ووورد بشكل بسيط وممتع خطوة بخطوة 🎉✨
                             </p>
-                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal" data-key="readMoreBtn">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -848,12 +954,13 @@
                     <div class="card">
                         <img src="./5.png" alt="Coming Soon" class="card__image" />
                         <div class="card__overlay">
-                            <h3 class="card__title">Coming Soon</h3>
-                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                            <h3 class="card__title" data-key="comingSoonTitle">Comming Soon</h3>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal" data-key="readMoreBtn">Read More</a>
                         </div>
                     </div>
                 </div>
             </div>
+            <button class="carousel-nav-btn next-btn" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
         </section>
     </main>
 
@@ -871,10 +978,10 @@
             <li><a href="https://www.instagram.com/embedded_eg?igsh=MWFwb24wNGQyNnBwcA==" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
         </ul>
         <ul class="footer__menu">
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="https://wa.me/+201022613174">Contact Us</a></li>
+            <li><a href="./index.html" data-key="homeLink">Home</a></li>
+            <li><a href="https://wa.me/+201022613174" data-key="contactUsLink">Contact Us</a></li>
         </ul>
-        <p class="footer__copyright fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;"> &copy; 2025 Embedded_EG | All Rights Reserved</p>
+        <p class="footer__copyright fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;" data-key="copyrightText"> &copy; 2025 Embedded_EG | All Rights Reserved</p>
     </footer>
 
     <!-- Modal Structure -->
@@ -883,12 +990,128 @@
             <button class="modal-close-button" id="closeModalBtn">&times;</button>
             <h3 class="modal-title" id="modalCourseTitle"></h3>
             <p class="modal-description" id="modalCourseDescription"></p>
-            <a href="https://wa.me/+201022613174" class="modal-contact-button" target="_blank">تواصل معنا عبر واتساب</a>
+            <a href="https://wa.me/+201022613174" class="modal-contact-button" target="_blank" data-key="modalContactBtn">تواصل معنا عبر واتساب</a>
         </div>
     </div>
 
     <!-- Font Awesome JavaScript (for icon animations like fa-fade) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+    <!-- Particles.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        /* particles.js config */
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#12439c", /* Lines match primary blue */
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
 
     <!-- Embedded JavaScript -->
     <script>
@@ -900,83 +1123,238 @@
             const closeModalBtn = document.getElementById('closeModalBtn');
             const modalCourseTitle = document.getElementById('modalCourseTitle');
             const modalCourseDescription = document.getElementById('modalCourseDescription');
+            const modalContactBtn = document.querySelector('.modal-contact-button'); // Get the contact button in modal
+
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const langToggleBtn = document.getElementById('language-toggle-btn');
+            const htmlTag = document.documentElement;
 
             let isDown = false;
             let startX;
             let scrollLeft;
             let autoPlayInterval;
-            let isDragging = false; // Flag to distinguish drag from click
+            let isDragging = false;
 
-            // Course Details Data (You can expand this with more details)
-            const courseDetails = {
-                "arduino": {
-                    title: "كورس الأردوينو للأطفال: ابدأ رحلتك في عالم الروبوتات!",
-                    description: `
-                        تعلم أساسيات البرمجة والدوائر الإلكترونية بطريقة ممتعة وتفاعلية.
-                        صمم روبوتات ومشاريع إلكترونية بسيطة خطوة بخطوة.
-                        تنمية مهارات التفكير المنطقي وحل المشكلات والإبداع.
-                        مناسب للأطفال من عمر 8 سنوات فما فوق.
-                        لا يتطلب أي خبرة سابقة في البرمجة أو الإلكترونيات.
+            // --- Translations Data ---
+            const translations = {
+                'en': {
+                    pageTitle: 'Embedded EG Courses',
+                    langToggleText: 'العربية',
+                    headerPrefix: 'Embedded EG',
+                    headerSuffix: 'Courses',
+                    arduinoTitle: 'Arduino Course For Kids',
+                    arduinoShortDesc: '- Teach your child programming, electronic circuits, and robotics 💻\n- Suitable for ages 8 and up 🧒',
+                    htmlcssTitle: 'HTML&CSS For Kids',
+                    htmlcssShortDesc: 'Teach your child web design now 🌐\n- Learn HTML & CSS languages 📚\n- Suitable for ages 7 and up 🧒',
+                    bootstrapTitle: 'Bootstrap For Kids',
+                    bootstrapShortDesc: '- Learn how to create responsive websites for all screens 📱💻\n- Suitable for ages 7 and up 🧒\n- Prerequisites:\n- HTML & CSS languages 📚',
+                    scratchTitle: 'Scratch',
+                    scratchShortDesc: 'Scratch is a fun program to teach children programming basics by designing interactive games and stories in an easy and visual way 🎮📖\nSuitable for children aged 6 and above!',
+                    pythonTitle: 'Python',
+                    pythonShortDesc: 'Python course for children aged 8 and up, starting from basics to professionalism in a practical and interactive way, with step-by-step follow-up and real project implementation.',
+                    icdlTitle: 'ICDL',
+                    icdlShortDesc: 'ICDL course for kids! 🧑‍💻\nWe will learn PowerPoint, Excel, and Word together in a simple and fun way, step by step 🎉✨',
+                    comingSoonTitle: 'Coming Soon',
+                    readMoreBtn: 'Read More',
+                    homeLink: 'Home',
+                    contactUsLink: 'Contact Us',
+                    copyrightText: '© 2025 Embedded_EG | All Rights Reserved',
+                    modalContactBtn: 'Contact us via WhatsApp',
+                    // Full descriptions for modal
+                    arduinoFullDesc: `
+                        This course introduces children to the exciting world of programming and electronics using Arduino. They will learn:
+                        - Basic programming concepts through hands-on projects.
+                        - How electronic circuits work and how to build simple ones.
+                        - The fundamentals of robotics and how to create their own small robots.
+                        The curriculum is designed to be fun and interactive, fostering logical thinking, problem-solving skills, and creativity.
+                        Suitable for children aged 8 years and above. No prior experience in programming or electronics is required.
+                    `,
+                    htmlcssFullDesc: `
+                        Empower your child to design their own websites! This course covers:
+                        - The core concepts of HTML (HyperText Markup Language) for structuring web content.
+                        - The essentials of CSS (Cascading Style Sheets) for styling and layout.
+                        Children will learn to create their own web pages, add text, images, colors, and basic layouts.
+                        This course is a fantastic gateway into the world of web development and is suitable for children aged 7 years and above.
+                    `,
+                    bootstrapFullDesc: `
+                        Take your child's web design skills to the next level with Bootstrap! In this course, they will learn:
+                        - How to use the popular Bootstrap framework to build professional and responsive websites.
+                        - Techniques to make websites look great on all devices, including desktops, tablets, and smartphones.
+                        - How to utilize pre-built components for efficient and rapid design.
+                        This course is suitable for children aged 7 years and above.
+                        Prerequisites: A solid understanding of HTML and CSS is required.
+                    `,
+                    scratchFullDesc: `
+                        Scratch is a vibrant and engaging visual programming language designed specifically for children. Through this course, kids will:
+                        - Learn fundamental programming concepts by dragging and dropping colorful code blocks.
+                        - Create their own interactive stories, animations, and games.
+                        - Develop critical thinking, problem-solving, and creative skills in a playful environment.
+                        This course is perfect for children aged 6 years and above, providing a strong foundation for future coding endeavors.
+                    `,
+                    pythonFullDesc: `
+                        Introduce your child to real-world programming with Python! This course, designed for children aged 8 and up, covers:
+                        - Python basics, from variables and data types to loops and functions.
+                        - Practical, hands-on coding with interactive exercises.
+                        - Step-by-step guidance through building real projects.
+                        The focus is on practical application and fostering computational thinking and analytical skills. No prior programming experience is needed.
+                    `,
+                    icdlFullDesc: `
+                        The ICDL (International Computer Driving Licence) course for children is designed to equip them with essential computer literacy skills. They will learn:
+                        - How to effectively use Microsoft Word for document creation and editing.
+                        - The basics of Microsoft Excel for managing and analyzing data in spreadsheets.
+                        - How to create engaging presentations using Microsoft PowerPoint.
+                        This course is suitable for children aged 7 years and above, helping them prepare for the digital demands of the future in a simple and fun way.
+                    `,
+                    comingSoonFullDesc: `
+                        We are constantly working to add new and innovative courses to develop your children's skills in technology and programming.
+                        Stay tuned for the latest additions!
                     `
                 },
-                "htmlcss": {
-                    title: "كورس HTML & CSS للأطفال: صمم موقعك الأول الآن!",
-                    description: `
-                        اكتشف عالم تصميم الويب وتعلم كيفية بناء صفحات الإنترنت.
-                        تعلم لغتي HTML (هيكل الصفحة) و CSS (تنسيق الصفحة) بطريقة مبسطة.
-                        قم بإنشاء صفحات ويب خاصة بك وأضف إليها النصوص والصور والألوان.
-                        مناسب للأطفال من عمر 7 سنوات فما فوق.
-                        بوابة رائعة لدخول عالم تطوير الويب.
-                    `
-                },
-                "bootstrap": {
-                    title: "كورس Bootstrap للأطفال: مواقع متجاوبة لكل الشاشات!",
-                    description: `
-                        تعلم إطار عمل Bootstrap الشهير لإنشاء مواقع ويب احترافية ومتجاوبة.
-                        اجعل موقعك يبدو رائعًا على أجهزة الكمبيوتر، التابلت، والهواتف الذكية.
-                        استخدم مكونات جاهزة لتصميم سريع وفعال.
-                        مناسب للأطفال من عمر 7 سنوات فما فوق.
-                        يشترط: معرفة أساسيات HTML و CSS.
-                    `
-                },
-                "scratch": {
-                    title: "كورس سكراتش: اصنع ألعابك وقصصك التفاعلية!",
-                    description: `
-                        برنامج سكراتش هو بيئة برمجة مرئية وممتعة مصممة خصيصًا للأطفال.
-                        تعلم أساسيات البرمجة عن طريق سحب وإفلات الكتل البرمجية.
-                        صمم ألعابك الخاصة، قصصًا تفاعلية، ورسومًا متحركة.
-                        تنمية التفكير الإبداعي والمنطقي ومهارات حل المشكلات.
-                        مناسب للأطفال من عمر 6 سنوات فما فوق.
-                    `
-                },
-                "python": {
-                    title: "كورس بايثون للأطفال: خطوتك الأولى في عالم البرمجة الحقيقي!",
-                    description: `
-                        تعلم لغة بايثون، واحدة من أشهر لغات البرمجة وأكثرها استخدامًا في العالم.
-                        ابدأ من الأساسيات وصولاً إلى بناء مشاريع برمجية حقيقية.
-                        تنمية مهارات التفكير الحسابي والتحليلي.
-                        مناسب للأطفال من عمر 8 سنوات فما فوق.
-                        يتم التركيز على التطبيق العملي والمشاريع التفاعلية.
-                    `
-                },
-                "icdl": {
-                    title: "كورس ICDL للأطفال: إتقان أساسيات الكمبيوتر!",
-                    description: `
-                        تعلم المهارات الأساسية لاستخدام الكمبيوتر والبرامج المكتبية.
-                        إتقان برامج Microsoft Word (معالجة النصوص)، Excel (الجداول الحسابية)، و PowerPoint (العروض التقديمية).
-                        تنمية مهارات البحث على الإنترنت والاستخدام الآمن للكمبيوتر.
-                        مناسب للأطفال من عمر 7 سنوات فما فوق.
-                        يساعد الأطفال على الاستعداد للمتطلبات الرقمية للمستقبل.
-                    `
-                },
-                "coming-soon": {
-                    title: "ترقبوا المزيد من الكورسات المثيرة!",
-                    description: `
+                'ar': {
+                    pageTitle: 'كورسات Embedded EG',
+                    langToggleText: 'English',
+                    headerPrefix: 'كورسات',
+                    headerSuffix: 'Embedded EG',
+                    arduinoTitle: 'كورس الأردوينو للأطفال',
+                    arduinoShortDesc: '- علم ابنك البرمجة و الدوائر الالكترونية و صناعة الروبوتات 💻\n- مناسب من عمر ٨ سنوات 🧒',
+                    htmlcssTitle: 'HTML & CSS للأطفال',
+                    htmlcssShortDesc: 'علم ابنك تصميم المواقع الان 🌐\n- تعلم لغة Html و Css 📚\n- مناسب من عمر ٧ سنوات 🧒',
+                    bootstrapTitle: 'Bootstrap للأطفال',
+                    bootstrapShortDesc: '- تعلم ازاي ينشئ مواقع متوافقة مع جميع الشاشات 📱💻\n- مناسب من عمر ٧ سنوات 🧒\n- يشترط معرفة:\n- لغة Html و Css 📚',
+                    scratchTitle: 'سكراتش',
+                    scratchShortDesc: 'سكراتش هو برنامج ممتع لتعليم الأطفال أساسيات البرمجة من خلال تصميم ألعاب وقصص تفاعلية بطريقة سهلة ومرئية 🎮📖\nمناسب للأطفال من عمر 6 سنوات فما فوق!',
+                    pythonTitle: 'بايثون',
+                    pythonShortDesc: 'كورس بايثون للأطفال من سن 8 سنوات، بنبدأ من الأساسيات لحد الاحتراف بطريقة عملية وتفاعلية، مع متابعة خطوة بخطوة وتنفيذ مشاريع حقيقية',
+                    icdlTitle: 'ICDL',
+                    icdlShortDesc: 'كورس ICDL للأطفال! 🧑‍💻\nهنتعلم مع بعض باوربوينت، إكسل، ووورد بشكل بسيط وممتع خطوة بخطوة 🎉✨',
+                    comingSoonTitle: 'قريباً',
+                    readMoreBtn: 'اقرأ المزيد',
+                    homeLink: 'الرئيسية',
+                    contactUsLink: 'تواصل معنا',
+                    copyrightText: '© 2025 Embedded_EG | جميع الحقوق محفوظة',
+                    modalContactBtn: 'تواصل معنا عبر واتساب',
+                    // Full descriptions for modal
+                    arduinoFullDesc: `
+                        يقدم هذا الكورس للأطفال عالمًا مثيرًا من البرمجة والإلكترونيات باستخدام الأردوينو. سيتعلمون:
+                        - مفاهيم البرمجة الأساسية من خلال مشاريع عملية.
+                        - كيفية عمل الدوائر الإلكترونية وكيفية بناء دوائر بسيطة.
+                        - أساسيات الروبوتات وكيفية إنشاء روبوتاتهم الصغيرة.
+                        تم تصميم المنهج ليكون ممتعًا وتفاعليًا، مما يعزز التفكير المنطقي ومهارات حل المشكلات والإبداع.
+                        مناسب للأطفال من عمر 8 سنوات فما فوق. لا يتطلب أي خبرة سابقة في البرمجة أو الإلكترونيات.
+                    `,
+                    htmlcssFullDesc: `
+                        امنح طفلك القدرة على تصميم مواقع الويب الخاصة به! يغطي هذا الكورس:
+                        - المفاهيم الأساسية للغة HTML (لغة ترميز النص التشعبي) لهيكلة محتوى الويب.
+                        - أساسيات CSS (أوراق الأنماط المتتالية) للتصميم والتخطيط.
+                        سيتعلم الأطفال إنشاء صفحات الويب الخاصة بهم، وإضافة النصوص والصور والألوان والتخطيطات الأساسية.
+                        هذا الكورس هو بوابة رائعة لدخول عالم تطوير الويب وهو مناسب للأطفال من عمر 7 سنوات فما فوق.
+                    `,
+                    bootstrapFullDesc: `
+                        ارفع مهارات طفلك في تصميم الويب إلى المستوى التالي مع Bootstrap! في هذا الكورس، سيتعلمون:
+                        - كيفية استخدام إطار عمل Bootstrap الشهير لبناء مواقع ويب احترافية ومتجاوبة.
+                        - تقنيات لجعل مواقع الويب تبدو رائعة على جميع الأجهزة، بما في ذلك أجهزة الكمبيوتر المكتبية والأجهزة اللوحية والهواتف الذكية.
+                        - كيفية الاستفادة من المكونات الجاهزة للتصميم السريع والفعال.
+                        هذا الكورس مناسب للأطفال من عمر 7 سنوات فما فوق.
+                        المتطلبات الأساسية: فهم قوي لأساسيات HTML و CSS مطلوب.
+                    `,
+                    scratchFullDesc: `
+                        سكراتش هي لغة برمجة مرئية نابضة بالحياة وجذابة مصممة خصيصًا للأطفال. من خلال هذا الكورس، سيتعلم الأطفال:
+                        - مفاهيم البرمجة الأساسية عن طريق سحب وإفلات كتل التعليمات البرمجية الملونة.
+                        - إنشاء قصصهم التفاعلية ورسومهم المتحركة وألعابهم الخاصة.
+                        - تطوير التفكير النقدي وحل المشكلات والمهارات الإبداعية في بيئة مرحة.
+                        هذا الكورس مثالي للأطفال من عمر 6 سنوات فما فوق، ويوفر أساسًا قويًا لمساعي البرمجة المستقبلية.
+                    `,
+                    pythonFullDesc: `
+                        قدم لطفلك البرمجة الواقعية مع بايثون! يغطي هذا الكورس، المصمم للأطفال من عمر 8 سنوات فما فوق:
+                        - أساسيات بايثون، من المتغيرات وأنواع البيانات إلى الحلقات والدوال.
+                        - برمجة عملية وتطبيقية مع تمارين تفاعلية.
+                        - إرشادات خطوة بخطوة من خلال بناء مشاريع حقيقية.
+                        التركيز ينصب على التطبيق العملي وتعزيز التفكير الحسابي والمهارات التحليلية. لا توجد خبرة سابقة في البرمجة مطلوبة.
+                    `,
+                    icdlFullDesc: `
+                        تم تصميم كورس ICDL (الرخصة الدولية لقيادة الحاسوب) للأطفال لتزويدهم بمهارات محو الأمية الحاسوبية الأساسية. سيتعلمون:
+                        - كيفية استخدام Microsoft Word بفعالية لإنشاء المستندات وتحريرها.
+                        - أساسيات Microsoft Excel لإدارة وتحليل البيانات في جداول البيانات.
+                        - كيفية إنشاء عروض تقديمية جذابة باستخدام Microsoft PowerPoint.
+                        هذا الكورس مناسب للأطفال من عمر 7 سنوات فما فوق، ويساعدهم على الاستعداد للمتطلبات الرقمية للمستقبل بطريقة بسيطة وممتعة.
+                    `,
+                    comingSoonFullDesc: `
                         نحن نعمل باستمرار على إضافة كورسات جديدة ومبتكرة لتنمية مهارات أطفالكم في مجالات التكنولوجيا والبرمجة.
                         تابعونا لمعرفة أحدث الإضافات!
                     `
                 }
             };
+
+            // --- Language Switching Functionality ---
+            const setLanguage = (lang) => {
+                // Set HTML lang attribute
+                htmlTag.lang = lang;
+
+                // Set text direction
+                htmlTag.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+                // Update all elements with data-key attribute
+                document.querySelectorAll('[data-key]').forEach(element => {
+                    const key = element.getAttribute('data-key');
+                    // Handle special cases like meta tags
+                    if (element.tagName === 'META' && element.hasAttribute('property') && element.getAttribute('property') === 'og:description') {
+                        element.setAttribute('content', translations[lang][key]);
+                    } else if (element.tagName === 'TITLE') {
+                        element.textContent = translations[lang][key];
+                    }
+                    // For regular text content
+                    else if (translations[lang][key]) {
+                        element.textContent = translations[lang][key];
+                    }
+                });
+
+                // Update specific elements that need dynamic content (like card short descriptions)
+                carouselItems.forEach(item => {
+                    const courseId = item.dataset.courseId;
+                    const shortDescElement = item.querySelector('.card__description');
+                    const titleElement = item.querySelector('.card__title');
+                    const readMoreButton = item.querySelector('.card__button');
+
+                    if (shortDescElement && translations[lang][`${courseId}ShortDesc`]) {
+                        shortDescElement.textContent = translations[lang][`${courseId}ShortDesc`];
+                        shortDescElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+                    }
+                    if (titleElement && translations[lang][`${courseId}Title`]) {
+                        titleElement.textContent = translations[lang][`${courseId}Title`];
+                    }
+                    if (readMoreButton && translations[lang]['readMoreBtn']) {
+                        readMoreButton.textContent = translations[lang]['readMoreBtn'];
+                    }
+                });
+
+                // Update modal contact button text
+                if (modalContactBtn && translations[lang]['modalContactBtn']) {
+                    modalContactBtn.textContent = translations[lang]['modalContactBtn'];
+                    modalContactBtn.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+                }
+
+                // Update language toggle button text
+                if (langToggleBtn) {
+                    langToggleBtn.querySelector('span').textContent = (lang === 'en') ? 'العربية' : 'English';
+                }
+
+                // Store preference
+                localStorage.setItem('selectedLanguage', lang);
+            };
+
+            // Toggle language on button click
+            if (langToggleBtn) {
+                langToggleBtn.addEventListener('click', () => {
+                    const currentLang = htmlTag.lang;
+                    const newLang = (currentLang === 'en') ? 'ar' : 'en';
+                    setLanguage(newLang);
+                });
+            }
+
+            // Load language preference on page load
+            const savedLang = localStorage.getItem('selectedLanguage') || 'en'; // Default to English
+            setLanguage(savedLang);
 
             // --- Carousel Dragging Functionality ---
             carousel.addEventListener('mousedown', (e) => {
@@ -1000,9 +1378,6 @@
                 isDown = false;
                 carousel.classList.remove('active-drag');
                 startAutoPlay(); // Resume auto-play
-
-                // The isDragging flag is set in mousemove. If mouseup happens without mousemove, it's a click.
-                // If mousemove happened, isDragging will be true.
             });
 
             carousel.addEventListener('mousemove', (e) => {
@@ -1018,27 +1393,32 @@
             });
 
             // --- Auto-play Functionality ---
+            const getScrollAmount = () => {
+                const item = carousel.querySelector('.carousel__item');
+                if (!item) return 0;
+                const gap = parseFloat(getComputedStyle(carousel).gap) || 0;
+                return item.offsetWidth + gap;
+            };
+
             const startAutoPlay = () => {
                 clearInterval(autoPlayInterval);
                 autoPlayInterval = setInterval(() => {
-                    const item = carousel.querySelector('.carousel__item');
-                    if (!item) {
+                    const scrollAmount = getScrollAmount();
+                    if (scrollAmount === 0) { // If no items, stop autoplay
                         stopAutoPlay();
                         return;
                     }
-                    const gap = parseFloat(getComputedStyle(carousel).gap) || 0;
-                    const itemWidth = item.offsetWidth + gap;
                     const currentScroll = carousel.scrollLeft;
                     const maxScroll = carousel.scrollWidth - carousel.clientWidth;
 
-                    if (currentScroll + itemWidth >= maxScroll) {
+                    if (currentScroll + scrollAmount >= maxScroll) {
                         carousel.scrollTo({
                             left: 0,
                             behavior: 'smooth'
                         });
                     } else {
                         carousel.scrollBy({
-                            left: itemWidth,
+                            left: scrollAmount,
                             behavior: 'smooth'
                         });
                     }
@@ -1053,6 +1433,33 @@
             carousel.addEventListener('mouseleave', startAutoPlay);
             carousel.addEventListener('focusin', stopAutoPlay);
             carousel.addEventListener('focusout', startAutoPlay);
+
+            // --- Carousel Navigation Buttons Functionality ---
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    stopAutoPlay();
+                    const scrollAmount = getScrollAmount();
+                    carousel.scrollBy({
+                        left: -scrollAmount,
+                        behavior: 'smooth'
+                    });
+                    // Resume autoplay after a short delay to allow scroll animation to finish
+                    setTimeout(startAutoPlay, 500);
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    stopAutoPlay();
+                    const scrollAmount = getScrollAmount();
+                    carousel.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                    // Resume autoplay after a short delay to allow scroll animation to finish
+                    setTimeout(startAutoPlay, 500);
+                });
+            }
 
             // --- Active Item Highlighting ---
             const updateActiveItem = () => {
@@ -1113,40 +1520,56 @@
                 }
             });
 
-            // --- Modal Functionality ---
+            // --- Modal Functionality (updated to use translations) ---
             const openModal = (courseId) => {
-                const details = courseDetails[courseId];
-                if (details) {
-                    modalCourseTitle.textContent = details.title;
-                    modalCourseDescription.textContent = details.description;
+                const currentLang = htmlTag.lang;
+                const fullDescKey = `${courseId}FullDesc`;
+                const titleKey = `${courseId}Title`;
+
+                const details = translations[currentLang][fullDescKey];
+                const title = translations[currentLang][titleKey];
+
+                if (details && title) {
+                    modalCourseTitle.textContent = title;
+                    modalCourseDescription.textContent = details;
+                    
                     // Set direction for Arabic text in modal
-                    if (details.description.match(/[\u0600-\u06FF]/)) { // Check for Arabic characters
+                    if (currentLang === 'ar') {
                         modalCourseDescription.setAttribute('dir', 'rtl');
                         modalCourseTitle.setAttribute('dir', 'rtl');
                     } else {
                         modalCourseDescription.removeAttribute('dir');
                         modalCourseTitle.removeAttribute('dir');
                     }
-                    courseModal.classList.remove('closing'); // Ensure closing animation is not active
+                    
+                    courseModal.classList.remove('closing');
                     courseModal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Prevent scrolling body
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    // Fallback for "Coming Soon" or missing translations
+                    modalCourseTitle.textContent = translations[currentLang]['comingSoonTitle'];
+                    modalCourseDescription.textContent = translations[currentLang]['comingSoonFullDesc'] || translations[currentLang]['comingSoonTitle']; // Use full desc if available, else title
+                    modalCourseDescription.removeAttribute('dir'); // Default to LTR for generic message
+                    modalCourseTitle.removeAttribute('dir');
+                    courseModal.classList.remove('closing');
+                    courseModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
                 }
             };
 
             const closeModal = () => {
-                courseModal.classList.add('closing'); // Start closing animation
-                // Wait for the animation to finish before hiding the modal completely
+                courseModal.classList.add('closing');
                 courseModal.addEventListener('transitionend', function handler() {
                     courseModal.classList.remove('active');
-                    courseModal.classList.remove('closing'); // Remove closing class after animation
-                    document.body.style.overflow = ''; // Restore body scrolling
-                    courseModal.removeEventListener('transitionend', handler); // Clean up listener
-                }, { once: true }); // Use { once: true } to automatically remove the listener
+                    courseModal.classList.remove('closing');
+                    document.body.style.overflow = '';
+                    courseModal.removeEventListener('transitionend', handler);
+                }, { once: true });
             };
 
             readMoreButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent default link behavior
+                    e.preventDefault();
                     const courseId = e.target.closest('.carousel__item').dataset.courseId;
                     openModal(courseId);
                 });
@@ -1154,14 +1577,12 @@
 
             closeModalBtn.addEventListener('click', closeModal);
 
-            // Close modal when clicking outside the content
             courseModal.addEventListener('click', (e) => {
-                if (e.target === courseModal) { // Only if click is directly on the overlay
+                if (e.target === courseModal) {
                     closeModal();
                 }
             });
 
-            // Close modal with Escape key
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && courseModal.classList.contains('active')) {
                     closeModal();
@@ -1170,8 +1591,8 @@
 
 
             // --- Initializations ---
-            startAutoPlay(); // Start auto-play on load
-            updateActiveItem(); // Set initial active item
+            startAutoPlay();
+            updateActiveItem();
         });
     </script>
 </body>
