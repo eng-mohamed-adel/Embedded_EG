@@ -4,469 +4,1119 @@
     <meta charset="UTF-8">
     <title>Embedded EG Courses</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Open Graph Meta Tags -->
-<meta property="og:title" content="Embedded EG" />
-<meta property="og:description" content="نطور مهارات اطفال المستقبل 🚀💻
-تعليم البرمجة و الدوائر الالكترونية و صناعة الروبوتات للأطفال بطريقة ممتعة و تفاعلية 🎓💡
-انضموا لينا و علموا اولادكم المستقبل 🤖" />
-<meta property="og:image" content="./link logo.png" />
-<meta property="og:url" content="https://example.com/your-page" />
-<meta property="og:type" content="website" />
 
-<!-- Twitter Card (اختياري لدعم تويتر بشكل أفضل) -->
-<meta name="twitter:card" content="Embedded EG" />
-<meta name="twitter:title" content="@EMBEDDED_EG" />
-<meta name="twitter:description" content="نطور مهارات اطفال المستقبل 🚀💻
-تعليم البرمجة و الدوائر الالكترونية و صناعة الروبوتات للأطفال بطريقة ممتعة و تفاعلية 🎓💡
-انضموا لينا و علموا اولادكم المستقبل 🤖" />
-<meta name="twitter:image" content="./link logo.png" />
-    <!-- Materialize CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="./fontawesome.min.css">
-<link rel="icon" href="./Logo(EMBEDDED).png">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Embedded EG" />
+    <meta property="og:description" content="نطور مهارات اطفال المستقبل 🚀💻 تعليم البرمجة و الدوائر الالكترونية و صناعة الروبوتات للأطفال بطريقة ممتعة و تفاعلية 🎓💡 انضموا لينا و علموا اولادكم المستقبل 🤖" />
+    <meta property="og:image" content="./link logo.png" />
+    <meta property="og:url" content="https://example.com/your-page" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="Embedded EG" />
+    <meta name="twitter:title" content="@EMBEDDED_EG" />
+    <meta name="twitter:description" content="نطور مهارات اطفال المستقبل 🚀💻 تعليم البرمجة و الدوائر الالكترونية و صناعة الروبوتات للأطفال بطريقة ممتعة و تفاعلية 🎓💡 انضموا لينا و علموا اولادكم المستقبل 🤖" />
+    <meta name="twitter:image" content="./link logo.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="./Logo(EMBEDDED).png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Updated Google Fonts links for Outfit (English) and Cairo (Arabic) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Embedded Styles -->
     <style>
-        /* === Base Styles === */
+        /* --- CSS Variables (Updated for new design) --- */
         :root {
-          /* Control card size from one place */
-          --card-max: 400px;
+            --color-background-dark: #01050b; /* Deep dark background */
+            --color-primary-blue: #12439c; /* Primary accent blue */
+            --color-secondary-blue: #1a56c2; /* Slightly lighter blue for accents/hover */
+            --color-text-light: #E0E6F6; /* Light text for readability */
+            --color-text-muted: #A0A8B8; /* Muted text for secondary info */
+            --color-card-bg: #0A1428; /* Slightly lighter than main background for cards */
+
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            --font-arabic: 'Cairo', sans-serif;
+            --font-monospace: 'monospace';
+
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+
+            --border-radius-sm: 8px; /* Slightly larger border-radius for softer look */
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-pill: 50px;
+
+            --transition-speed: 0.4s; /* Slightly slower for smoother transitions */
+            --transition-timing-function: ease-in-out;
+            --box-shadow-light: 0 6px 20px rgba(0, 0, 0, 0.25);
+            --box-shadow-dark: 0 12px 40px rgba(0, 0, 0, 0.5);
+
+            --card-size-desktop: 28vw;
+            --card-size-tablet: 40vw;
+            --card-size-mobile: 80vw;
+            --card-max-width: 400px;
+        }
+
+        /* --- Base Styles --- */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-          margin: 0;
-          padding: 0;
-            background: linear-gradient(to bottom, #13459e, #030b19);
-
-          overflow-x: hidden; /* Prevent horizontal scrolling */
-          font-family: "Roboto", sans-serif;
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
+            font-family: var(--font-body);
+            font-weight: 400;
+            /* Smoother gradient with new colors */
+            background: linear-gradient(to bottom, var(--color-background-dark) 0%, #050d1a 50%, var(--color-background-dark) 100%);
+            color: var(--color-text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            line-height: 1.7; /* Enhanced line height */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
+        /* Apply Arabic font where dir="rtl" is used */
+        [dir="rtl"] {
+            font-family: var(--font-arabic);
+        }
+
+        /* --- Header & Typing Effect --- */
+        .header {
+            padding-top: var(--spacing-xl);
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
         .wrapper {
-          position: relative;
-          top: 40px;
-          color: #fff;
-  /*This part is important for centering*/
-  display: grid;
-  place-items: center;
-}
+            display: grid;
+            place-items: center;
+        }
 
-.typing-demo {
-  width: 19ch;
-  animation: typing 2s steps(19), blink .5s step-end infinite alternate;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 3px solid;
-  font-family: monospace;
-  font-size: 2em;
-}
+        .typing-demo {
+            /* Adjusted width to fit "Embedded EG Courses." (21 characters + 1 for safety) */
+            width: 22ch;
+            animation: typing 2s steps(22), blink .5s step-end infinite alternate; /* Adjusted steps */
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid var(--color-primary-blue); /* Consistent with new accent */
+            font-family: var(--font-heading); /* Changed to Outfit */
+            font-weight: 700; /* Bold for impact */
+            font-size: 3em; /* Slightly larger for impact */
+            color: var(--color-text-light);
+            text-shadow: 0 0 8px var(--color-primary-blue); /* Deeper shadow */
+        }
 
-@keyframes typing {
-  from {
-    width: 0
-  }
-}
-    
-@keyframes blink {
-  50% {
-    border-color: transparent
-  }
-}
+        @keyframes typing {
+            from { width: 0 }
+        }
 
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
 
-        /* Carousel wrapper */
+        /* --- Main Content --- */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-lg) var(--spacing-sm);
+        }
+
+        /* --- Carousel --- */
+        .carousel-section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+
         .carousel {
-          height: 60vh;               /* Flexible height */
-          max-height: 600px;          /* Prevent stretching on very tall screens */
-          perspective: 450px;
-          margin-top: 5vh;            /* Scales with viewport */
+            display: flex;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth; /* Added for smoother scrolling */
+            -webkit-overflow-scrolling: touch;
+            padding: var(--spacing-md);
+            gap: var(--spacing-lg);
+            max-width: 100vw;
+            height: 60vh;
+            max-height: 600px;
+            perspective: 450px;
+            margin-top: var(--spacing-lg);
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-primary-blue) var(--color-card-bg);
+            cursor: grab; /* Indicate draggable */
+            will-change: scroll-position; /* Optimize for scrolling performance */
         }
 
-        /* Individual slide */
-        .carousel .carousel-item {
-          width: 28vw;                /* Relative sizing */
-          height: 28vw;
-          max-width: var(--card-max);
-          max-height: var(--card-max);
-          box-shadow: 0 0 40px #61dafb, 0 0 40px #61dafb, 0 0 40px #61dafb;
-          animation: glow 10s infinite alternate;
-          border-radius: 15px;
+        .carousel::-webkit-scrollbar {
+            height: 8px;
         }
 
-        /* Glowing effect */
-        @keyframes glow {
-          to {
-            box-shadow: 0 0 50px #61dafb, 0 0 50px #61dafb, 0 0 50px #61dafb;
-          }
+        .carousel::-webkit-scrollbar-track {
+            background: var(--color-card-bg);
+            border-radius: var(--border-radius-pill);
         }
 
-        /* Card container */
-        .box {
-          border-radius: 10px;
-          position: relative;
-          overflow: hidden;
-          box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
-          width: 100%;
-          height: 100%;
+        .carousel::-webkit-scrollbar-thumb {
+            background-color: var(--color-primary-blue);
+            border-radius: var(--border-radius-pill);
+            border: 2px solid var(--color-card-bg);
         }
 
-        .box img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;          /* Keep aspect ratio, crop if needed */
-          border-radius: 10px;
-          display: block;
-          transition: transform 0.5s;
+        .carousel.active-drag {
+            cursor: grabbing; /* Indicate dragging state */
         }
 
-        /* Overlay */
-        .overlay {
-          width: 100%;
-          height: 0;
-          background: linear-gradient(transparent, #1c1c1c 58%);
-          border-radius: 10px;
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          padding: 0 40px;
-          text-align: center;
-          font-size: 1rem;
-          transition: height 0.5s ease;
+        .carousel__item {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            width: var(--card-size-desktop);
+            height: var(--card-size-desktop);
+            max-width: var(--card-max-width);
+            max-height: var(--card-max-width);
+            box-shadow: var(--box-shadow-light);
+            border-radius: var(--border-radius-lg); /* Softer corners */
+            transition: transform var(--transition-speed) var(--transition-timing-function), box-shadow var(--transition-speed) var(--transition-timing-function);
+            /* cursor: pointer; Removed from here, handled by carousel parent */
+            will-change: transform, box-shadow;
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
         }
 
-        .overlay h3 {
-          font-weight: 500;
-          margin-bottom: 5px;
-          margin-top: 65%;
-          font-family: "Bebas Neue", sans-serif;
-          font-size: 2rem;
-          letter-spacing: 2px;
-          color: #fff;
+        .carousel__item.is-active {
+            transform: scale(1.03);
+            box-shadow: var(--box-shadow-dark); /* More pronounced shadow when active */
         }
 
-        .overlay a {
-          margin-top: 10px;
-          color: #262626;
-          text-decoration: none;
-          font-size: 0.9rem;
-          background: #fff;
-          border-radius: 50px;
-          text-align: center;
-          padding: 6px 20px;
-          margin-bottom: 30px;
+        /* --- Card --- */
+        .card {
+            border-radius: var(--border-radius-lg);
+            position: relative;
+            overflow: hidden;
+            box-shadow: none; /* Shadow handled by carousel__item */
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color-card-bg); /* Card background */
         }
 
-        /* Hover interactions */
-        .box:hover img {
-          transform: scale(1.05);
+        .card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--border-radius-lg);
+            display: block;
+            transition: transform var(--transition-speed) var(--transition-timing-function), filter var(--transition-speed) var(--transition-timing-function);
+            will-change: transform, filter;
         }
 
-        .box:hover .overlay {
-          height: 100%;
+        .card.is-revealed .card__image {
+            filter: blur(8px) brightness(0.6); /* Stronger blur and darken for better contrast */
+            transform: scale(1.1); /* More zoom on blur */
         }
 
-        /* === Responsive Tweaks === */
-        @media (max-width: 992px) {
-          /* Medium screens (tablets) */
-          .carousel .carousel-item {
-            width: 40vw;
-            height: 40vw;
-          }
+        .card__overlay {
+            width: 100%;
+            height: 0;
+            background: linear-gradient(to top, var(--color-background-dark) 0%, rgba(1, 5, 11, 0.8) 50%, transparent 100%);
+            border-radius: var(--border-radius-lg);
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: var(--spacing-sm) var(--spacing-md);
+            text-align: center;
+            font-size: var(--spacing-sm);
+            transition: height var(--transition-speed) var(--transition-timing-function);
+            will-change: height;
+            pointer-events: none;
         }
 
+        .card.is-revealed .card__overlay {
+            height: 100%;
+            pointer-events: auto;
+        }
+
+        .card__title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 2.4rem; /* Larger title for impact */
+            letter-spacing: 0.5px;
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-xs);
+            text-shadow: 0 3px 10px rgba(0,0,0,0.6);
+            opacity: 0;
+            transform: translateY(30px); /* More pronounced slide-up */
+            transition: opacity var(--transition-speed) var(--transition-timing-function) 0.1s,
+                        transform var(--transition-speed) var(--transition-timing-function) 0.1s;
+            will-change: opacity, transform;
+        }
+
+        .card.is-revealed .card__title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card__description {
+            font-family: var(--font-body); /* Uses Outfit for English, Cairo for Arabic */
+            font-weight: 400;
+            font-size: 1.1rem; /* Larger description for readability */
+            line-height: 1.8; /* More generous line height */
+            color: var(--color-text-muted); /* Muted text color */
+            margin-bottom: var(--spacing-md);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--transition-speed) var(--transition-timing-function) 0.2s,
+                        transform var(--transition-speed) var(--transition-timing-function) 0.2s;
+            will-change: opacity, transform;
+        }
+
+        .card.is-revealed .card__description {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card__button {
+            display: inline-block;
+            color: var(--color-background-dark); /* Dark text on blue button */
+            text-decoration: none;
+            font-size: 1.1rem; /* Larger button text */
+            font-weight: 600;
+            background: var(--color-primary-blue); /* Primary blue button */
+            border-radius: var(--border-radius-pill);
+            padding: 0.7em 1.8em; /* Larger padding */
+            margin-bottom: var(--spacing-md);
+            transition: background-color var(--transition-speed) var(--transition-timing-function), color var(--transition-speed) var(--transition-timing-function), transform var(--transition-speed) var(--transition-timing-function);
+            box-shadow: var(--box-shadow-light);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--transition-speed) var(--transition-timing-function) 0.3s,
+                        transform var(--transition-speed) var(--transition-timing-function) 0.3s;
+            will-change: opacity, transform;
+        }
+
+        .card__button:hover {
+            background-color: var(--color-secondary-blue); /* Lighter blue on hover */
+            transform: translateY(-5px); /* More pronounced lift */
+            box-shadow: var(--box-shadow-dark);
+        }
+
+        .card.is-revealed .card__button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            position: relative;
+            width: 100%;
+            background: var(--color-background-dark); /* Darker footer background */
+            min-height: 100px; /* Slightly taller footer */
+            padding: var(--spacing-md) var(--spacing-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: auto;
+            overflow: hidden;
+            box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.4); /* Deeper shadow */
+        }
+
+        .footer__social-icons,
+        .footer__menu {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: var(--spacing-sm) 0;
+            list-style: none;
+            z-index: 10;
+        }
+
+        .footer__social-icons li a {
+            font-size: 2.2em; /* Slightly larger icons */
+            color: var(--color-text-muted); /* Muted icon color */
+            margin: 0 var(--spacing-sm);
+            display: inline-block;
+            transition: transform var(--transition-speed) var(--transition-timing-function), color var(--transition-speed) var(--transition-timing-function);
+            will-change: transform, color;
+        }
+
+        .footer__social-icons li a:hover {
+            transform: translateY(-8px) scale(1.15); /* More pronounced lift and scale */
+            color: var(--color-primary-blue); /* Accent color on hover */
+        }
+
+        .footer__menu li a {
+            font-family: var(--font-body); /* Uses Outfit for English, Cairo for Arabic */
+            font-weight: 600;
+            font-size: 1.2em; /* Larger menu items */
+            color: var(--color-text-muted);
+            margin: 0 var(--spacing-sm);
+            display: inline-block;
+            transition: color var(--transition-speed) var(--transition-timing-function), opacity var(--transition-speed) var(--transition-timing-function);
+            text-decoration: none;
+            opacity: 0.8;
+            will-change: opacity, color;
+        }
+
+        .footer__menu li a:hover {
+            opacity: 1;
+            color: var(--color-text-light); /* Brighter on hover */
+        }
+
+        .footer__copyright {
+            font-family: var(--font-body); /* Uses Outfit for English, Cairo for Arabic */
+            font-weight: 400;
+            color: var(--color-text-muted);
+            text-align: center;
+            margin-top: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+            font-size: 1.05em; /* Larger copyright text */
+            opacity: 0.7;
+            z-index: 10;
+        }
+
+        /* Wave and Animation */
+        .footer__waves {
+            position: absolute;
+            top: -85px;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .footer__wave {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            background: url(https://i.ibb.co/rZt4Nhg/wave.png); /* Ensure this URL is correct */
+            background-size: 1000px 100px;
+            will-change: background-position-x;
+        }
+
+        #wave1 { z-index: 1000; opacity: 0.8; bottom: 0; animation: animateWave 4s linear infinite; } /* Adjusted opacity */
+        #wave2 { z-index: 999; opacity: 0.4; bottom: 10px; animation: animateWave_02 4s linear infinite; } /* Adjusted opacity */
+        #wave3 { z-index: 1000; opacity: 0.15; bottom: 0; animation: animateWave 3s linear infinite; } /* Adjusted opacity */
+        #wave4 { z-index: 999; opacity: 0.6; bottom: 20px; animation: animateWave_02 3s linear infinite; } /* Adjusted opacity */
+
+        @keyframes animateWave {
+            0%{ background-position-x: 1000px; }
+            100%{ background-position-x: 0px; }
+        }
+
+        @keyframes animateWave_02 {
+            0%{ background-position-x: 0px; }
+            100%{ background-position-x: 1000px; }
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) { /* Tablets and larger phones */
+            .typing-demo {
+                font-size: 2.5em; /* Adjusted for tablets */
+                width: 22ch;
+            }
+
+            .carousel__item {
+                width: var(--card-size-tablet);
+                height: var(--card-size-tablet);
+            }
+
+            .card__title {
+                font-size: 2rem;
+            }
+
+            .card__description {
+                font-size: 1.05rem;
+            }
+            .card__button {
+                font-size: 1.05rem;
+            }
+            .footer__menu li a {
+                font-size: 1.1em;
+            }
+            .footer__copyright {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 600px) { /* Smaller phones */
+            .header {
+                padding-top: var(--spacing-lg);
+            }
+
+            .typing-demo {
+                font-size: 1.8em; /* Adjusted for phones */
+                width: 22ch;
+                border-right-width: 2px;
+            }
+
+            .carousel {
+                height: 75vh; /* More height for smaller screens */
+                margin-top: var(--spacing-md);
+                padding: var(--spacing-sm);
+                gap: var(--spacing-md);
+            }
+
+            .carousel__item {
+                width: var(--card-size-mobile);
+                height: var(--card-size-mobile);
+            }
+
+            .card__overlay {
+                padding: var(--spacing-xs) var(--spacing-sm);
+            }
+
+            .card__title {
+                font-size: 1.8rem;
+            }
+
+            .card__description {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .card__button {
+                font-size: 0.95rem;
+                padding: 0.6em 1.5em;
+            }
+
+            .footer {
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+
+            .footer__social-icons li a {
+                font-size: 2em;
+                margin: 0 var(--spacing-xs);
+            }
+
+            .footer__menu li a {
+                font-size: 1em;
+                margin: 0 var(--spacing-xs);
+            }
+
+            .footer__copyright {
+                font-size: 0.95em;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .typing-demo {
+                font-size: 1.5em; /* Adjusted for very small phones */
+                width: 22ch;
+            }
+        }
+
+        /* --- Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Darker, more opaque background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            backdrop-filter: blur(5px); /* Subtle blur effect for background */
+            -webkit-backdrop-filter: blur(5px); /* For Safari */
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--color-card-bg);
+            color: var(--color-text-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            max-width: 650px; /* Slightly wider modal */
+            width: 90%;
+            box-shadow: var(--box-shadow-dark);
+            position: relative;
+            opacity: 0;
+            transform: scale(0.8) translateY(50px); /* Initial state for opening animation */
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.3s ease-out; /* Spring-like animation */
+            max-height: 90vh; /* Limit height for scrollable content */
+            overflow-y: auto; /* Enable scrolling for long content */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+        }
+
+        .modal-overlay.active .modal-content {
+            opacity: 1;
+            transform: scale(1) translateY(0); /* Final state for opening animation */
+        }
+
+        /* Animation for closing (Apple-like minimize) */
+        .modal-overlay.closing .modal-content {
+            opacity: 0;
+            transform: scale(0.2) translate(-50vw, 50vh); /* Shrink and move towards bottom-left */
+            transform-origin: bottom left; /* Anchor point for transformation */
+            transition: transform 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.335), opacity 0.4s ease-out; /* Custom bezier for minimize effect */
+        }
+
+
+        .modal-close-button {
+            position: sticky; /* Make it sticky at the top right */
+            top: 0;
+            float: right; /* Position to the right */
+            background: none;
+            border: none;
+            font-size: 2.2rem; /* Larger close button */
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+            z-index: 10; /* Ensure it's above content */
+            padding: 0.2em; /* Add some padding for click area */
+        }
+
+        .modal-close-button:hover {
+            color: var(--color-text-light);
+            transform: rotate(90deg); /* Subtle rotation on hover */
+        }
+
+        .modal-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 2.2rem; /* Slightly larger title */
+            color: var(--color-primary-blue); /* Use accent color for title */
+            margin-bottom: var(--spacing-sm);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .modal-description {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 1.15rem; /* Slightly larger description text */
+            line-height: 1.8; /* More generous line height */
+            color: var(--color-text-light); /* Use light text for main content */
+            margin-bottom: var(--spacing-md);
+            text-align: justify; /* Justify text for better readability */
+            padding-right: 10px; /* Space for scrollbar */
+        }
+
+        /* Custom scrollbar for modal content */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: var(--color-background-dark);
+            border-radius: var(--border-radius-pill);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: var(--color-primary-blue);
+            border-radius: var(--border-radius-pill);
+            border: 2px solid var(--color-background-dark);
+        }
+
+
+        .modal-contact-button {
+            display: inline-block;
+            color: var(--color-background-dark);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: var(--color-primary-blue);
+            border-radius: var(--border-radius-pill);
+            padding: 0.7em 1.8em;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: var(--box-shadow-light);
+            margin-top: var(--spacing-sm);
+            text-align: center;
+            width: fit-content; /* Adjust width to content */
+            margin-left: auto; /* Center button */
+            margin-right: auto; /* Center button */
+        }
+
+        .modal-contact-button:hover {
+            background-color: var(--color-secondary-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive adjustments for modal */
         @media (max-width: 600px) {
-          /* Small screens (phones) */
-          .carousel {
-            height: 75vh;
-            margin-top: 8vh;
-          }
-
-          .carousel .carousel-item {
-            width: 80vw;   /* Nearly full‑width on phones */
-            height: 80vw;
-          }
-
-          .overlay {
-            padding: 0 20px;
-            font-size: 0.8rem;
-          }
-
-          .overlay h3 {
-            margin-top: 50%;
-            font-size: 1.5rem;
-          }
+            .modal-content {
+                padding: var(--spacing-md);
+                width: 95%;
+                max-width: unset; /* Remove max-width on small screens */
+            }
+            .modal-title {
+                font-size: 1.8rem;
+            }
+            .modal-description {
+                font-size: 1.05rem;
+            }
+            .modal-contact-button {
+                font-size: 1rem;
+                padding: 0.6em 1.5em;
+            }
+            .modal-close-button {
+                font-size: 2rem;
+            }
         }
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-
-footer {
-  position: relative;
-  width: 100%;
-  background: #3586ff;
-  min-height: 80px;
-  padding: 20px 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: auto;
-}
-
-footer .social_icon, footer .menu {
-  position: relative;
-  display: flex;
-  justify-content:center;
-  align-items:center;
-  margin: 10px 0;
-}
-
-footer .social_icon li, footer .menu li {
-  list-style: none;
-}
-footer .social_icon li a {
-  font-size: 2em;
-  color: #ccc;
-  margin: 0 10px;
-  display: inline-block;
-  transition: 0.5s;
-}
-footer .social_icon li a:hover {
-  transform: translateY(-15px);
-  color: blue;
-}
-
-footer .menu li a {
-  font-size: 1.2em;
-  color: #ccc;
-  margin: 0 10px;
-  display: inline-block;
-  transition: 0.5s;
-  text-decoration: none;
-  opacity: 0.75;
-}
-footer .menu li a:hover {
-  opacity: 1;
-  color: #fff;
-}
-p {
-  color : #eee;
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 10px;
-  font-size: 1.1em;
-}
-
-/*wave and animation*/
-footer .wave {
-  position: absolute;
-  top: -85px;
-  left: 0;
-  width: 100%;
-  height: 90px;
-  background: url(https://i.ibb.co/rZt4Nhg/wave.png);
-  background-size: 1000px 100px;
-}
-
-footer .wave#wave1 {
-  z-index: 1000;
-  opacity: 1;
-  bottom: 0;
-  animation: animateWave 4s linear infinite;
-}
-
-footer .wave#wave2 {
-  z-index: 999;
-  opacity: 0.5;
-  bottom: 10px;
-  animation: animateWave_02 4s linear infinite;
-}
-footer .wave#wave3 {
-  z-index: 1000;
-  opacity: 0.2;
-  bottom: 0;
-  animation: animateWave 3s linear infinite;
-}
-
-footer .wave#wave4 {
-  z-index: 999;
-  opacity: 0.7;
-  bottom: 20px;
-  animation: animateWave_02 3s linear infinite;
-}
-
-@keyframes animateWave {
-  0%{
-    background-position-x: 1000px; 
-  }
-  100%{
-    background-position-x: 0px; 
-  }
-}
-
-@keyframes animateWave_02 {
-  0%{
-    background-position-x: 0px; 
-  }
-  100%{
-    background-position-x: 1000px; 
-  }
-}
-
     </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="typing-demo">
-      Embedded EG <span class="fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;">Courses</span>.
-    </div>
-</div>
-  <!-- Carousel -->
-  <div class="carousel">
-    <div class="carousel-item">
-      <div class="box">
-        <img src="./2.png" alt="Pink Flowers" />
-        <div class="overlay">
-          <h3>Arduino Course For Kids</h3>
-          <p style="direction: rtl;">
-<br>- علم ابنك البرمجة و الدوائر الالكترونية و صناعة الروبوتات 💻
-- مناسب من عمر ٨ سنوات 🧒
-          </p>
-          <a href="https://wa.me/+201022613174 ">Read More</a>
+    <header class="header">
+        <div class="wrapper">
+            <h1 class="typing-demo">
+                Embedded EG <span class="fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;">Courses</span>.
+            </h1>
         </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-       <div class="box">
-        <img src="./3.png" alt="Pink Flowers" />
-        <div class="overlay">
-          <h3>HTML&CSS For Kids</h3>
-          <p style="direction: rtl;">
-<br>علم ابنك تصميم المواقع الان 🌐
-<br>- تعلم لغة Html و Css 📚
-- مناسب من عمر ٧ سنوات 🧒
-          </p>
-          <a href="https://wa.me/+201022613174 ">Read More</a>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="box">
-        <img src="./4.png" alt="Pink Flowers" />
-        <div class="overlay">
-          <h3>Bootstrap For Kids</h3>
-          <p style="direction: rtl;">
+    </header>
 
-<br>- تعلم ازاي ينشئ مواقع متوافقة مع جميع الشاشات 📱💻
-<br>- مناسب من عمر ٧ سنوات 🧒
-<br>- يشترط معرفة:
-- لغة Html و Css 📚
- </p>         
-<a href="https://wa.me/+201022613174 ">Read More</a>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="box">
-        <img src="https://i.ibb.co/M5yWgp7x/SCRATCH.png" alt="Pink Flowers" />
-        <div class="overlay">
-          <h3>Scratch</h3>
-          <p style="direction: rtl;">
-سكراتش هو برنامج ممتع لتعليم الأطفال أساسيات البرمجة من خلال تصميم ألعاب وقصص تفاعلية بطريقة سهلة ومرئية 🎮📖
-مناسب للأطفال من عمر 6 سنوات فما فوق!<br>
- </p>         
-<a href="https://wa.me/+201022613174 ">Read More</a>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="box">
-        <img src="https://i.ibb.co/1fLzdHcP/PYTHON.png" alt="Python" />
-        <div class="overlay">
-          <h3>Python</h3>
-          <p style="direction: rtl;">
-            كورس بايثون للأطفال من سن 8 سنوات، بنبدأ من الأساسيات لحد الاحتراف بطريقة عملية وتفاعلية، مع متابعة خطوة بخطوة وتنفيذ مشاريع حقيقية
+    <main class="main-content">
+        <section class="carousel-section">
+            <div class="carousel">
+                <div class="carousel__item" data-course-id="arduino">
+                    <div class="card">
+                        <img src="./2.png" alt="Arduino Course for Kids" class="card__image" />
+                        <div class="card__overlay">
+                            <h3 class="card__title">Arduino Course For Kids</h3>
+                            <p class="card__description" dir="rtl">
+                                <br>- علم ابنك البرمجة و الدوائر الالكترونية و صناعة الروبوتات 💻
+                                <br>- مناسب من عمر ٨ سنوات 🧒
+                            </p>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel__item" data-course-id="htmlcss">
+                    <div class="card">
+                        <img src="./3.png" alt="HTML & CSS Course for Kids" class="card__image" />
+                        <div class="card__overlay">
+                            <h3 class="card__title">HTML&CSS For Kids</h3>
+                            <p class="card__description" dir="rtl">
+                                <br>علم ابنك تصميم المواقع الان 🌐
+                                <br>- تعلم لغة Html و Css 📚
+                                <br>- مناسب من عمر ٧ سنوات 🧒
+                            </p>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel__item" data-course-id="bootstrap">
+                    <div class="card">
+                        <img src="./4.png" alt="Bootstrap Course for Kids" class="card__image" />
+                        <div class="card__overlay">
+                            <h3 class="card__title">Bootstrap For Kids</h3>
+                            <p class="card__description" dir="rtl">
 
- </p>         
-<a href="https://wa.me/+201022613174 ">Read More</a>
-        </div>
-      </div>
-    </div>
-     <div class="carousel-item">
-      <div class="box">
-        <img src="https://i.ibb.co/99WckMFj/ICDL.png" alt="Python" />
-        <div class="overlay">
-          <h3>ICDL</h3>
-          <p style="direction: rtl;">
-كورس ICDL للأطفال! 🧑‍💻
-هنتعلم مع بعض باوربوينت، إكسل، ووورد بشكل بسيط وممتع خطوة بخطوة 🎉✨
- </p>         
-<a href="https://wa.me/+201022613174 ">Read More</a>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="box">
-        <img src="./5.png" alt="Comming Soon" />
-        <div class="overlay">
-          <h3>Comming Soon</h3>
-          
-          <a href="https://wa.me/+201022613174 ">Read More</a>
-        </div>
-      </div>
-    </div>
-    
-  </div>
-  <!--ZG-FOOTER-->
-  <footer>
-  <div class="waves">
-    <div class="wave" id="wave1"></div>
-    <div class="wave" id="wave2"></div>
-    <div class="wave" id="wave3"></div>
-    <div class="wave" id="wave4"></div>
-  </div>
-  <ul class="social_icon">
-    <li><a href="https://www.facebook.com/share/1LXZ8p8D1Q/"><ion-icon name="logo-facebook"></ion-icon></a></li>
-    <li><a href="https://wa.me/+201022613174 "><ion-icon name="logo-whatsapp"></ion-icon></a></li>
-    <li><a href="https://www.tiktok.com/@embedded_eg?_t=ZS-8wlhPwncFQf&_r=1"><ion-icon name="logo-tiktok"></ion-icon></a></li>
-    <li><a href="https://www.instagram.com/embedded_eg?igsh=MWFwb24wNGQyNnBwcA=="><ion-icon name="logo-instagram"></ion-icon></a></li>
-  </ul>
-  
-  <ul class="menu">
-    <li><a href="./index.html">Home</a></li>
-    <li><a href="https://wa.me/+201022613174 ">Contact US</a></li>
-  </ul>
-  <p class="fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;"> &copy 2025 Embedded_EG | All Rights Reserved</p>
-</footer>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+                                <br>- تعلم ازاي ينشئ مواقع متوافقة مع جميع الشاشات 📱💻
+                                <br>- مناسب من عمر ٧ سنوات 🧒
+                                <br>- يشترط معرفة:
+                                <br>- لغة Html و Css 📚
+                            </p>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel__item" data-course-id="scratch">
+                    <div class="card">
+                        <img src="https://i.ibb.co/M5yWgp7x/SCRATCH.png" alt="Scratch Course" class="card__image" />
+                        <div class="card__overlay">
+                            <h3 class="card__title">Scratch</h3>
+                            <p class="card__description" dir="rtl">
+                                سكراتش هو برنامج ممتع لتعليم الأطفال أساسيات البرمجة من خلال تصميم ألعاب وقصص تفاعلية بطريقة سهلة ومرئية 🎮📖
+                                مناسب للأطفال من عمر 6 سنوات فما فوق!<br>
+                            </p>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel__item" data-course-id="python">
+                    <div class="card">
+                        <img src="https://i.ibb.co/1fLzdHcP/PYTHON.png" alt="Python Course" class="card__image" />
+                        <div class="card__overlay">
+                            <h3 class="card__title">Python</h3>
+                            <p class="card__description" dir="rtl">
+                                كورس بايثون للأطفال من سن 8 سنوات، بنبدأ من الأساسيات لحد الاحتراف بطريقة عملية وتفاعلية، مع متابعة خطوة بخطوة وتنفيذ مشاريع حقيقية
+                            </p>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel__item" data-course-id="icdl">
+                    <div class="card">
+                        <img src="https://i.ibb.co/99WckMFj/ICDL.png" alt="ICDL Course" class="card__image" />
+                        <div class="card__overlay">
+                            <h3 class="card__title">ICDL</h3>
+                            <p class="card__description" dir="rtl">
+                                كورس ICDL للأطفال! 🧑‍💻
+                                هنتعلم مع بعض باوربوينت، إكسل، ووورد بشكل بسيط وممتع خطوة بخطوة 🎉✨
+                            </p>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel__item" data-course-id="coming-soon">
+                    <div class="card">
+                        <img src="./5.png" alt="Coming Soon" class="card__image" />
+                        <div class="card__overlay">
+                            <h3 class="card__title">Coming Soon</h3>
+                            <a href="javascript:void(0);" class="card__button" data-action="open-modal">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <!-- jQuery & Materialize JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="./all.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      const $carousel = $(".carousel");
-      $carousel.carousel({ padding: 200 });
+    <footer class="footer">
+        <div class="footer__waves">
+            <div class="footer__wave" id="wave1"></div>
+            <div class="footer__wave" id="wave2"></div>
+            <div class="footer__wave" id="wave3"></div>
+            <div class="footer__wave" id="wave4"></div>
+        </div>
+        <ul class="footer__social-icons">
+            <li><a href="https://www.facebook.com/share/1LXZ8p8D1Q/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="https://wa.me/+201022613174" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+            <li><a href="https://www.tiktok.com/@embedded_eg?_t=ZS-8wlhPwncFQf&_r=1" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
+            <li><a href="https://www.instagram.com/embedded_eg?igsh=MWFwb24wNGQyNnBwcA==" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+        <ul class="footer__menu">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="https://wa.me/+201022613174">Contact Us</a></li>
+        </ul>
+        <p class="footer__copyright fa-fade" style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;"> &copy; 2025 Embedded_EG | All Rights Reserved</p>
+    </footer>
 
-      // Auto‑play helper
-      (function autoplay() {
-        $carousel.carousel("next");
-        setTimeout(autoplay, 6000);
-      })();
-    });
-  </script>
+    <!-- Modal Structure -->
+    <div class="modal-overlay" id="courseModal">
+        <div class="modal-content">
+            <button class="modal-close-button" id="closeModalBtn">&times;</button>
+            <h3 class="modal-title" id="modalCourseTitle"></h3>
+            <p class="modal-description" id="modalCourseDescription"></p>
+            <a href="https://wa.me/+201022613174" class="modal-contact-button" target="_blank">تواصل معنا عبر واتساب</a>
+        </div>
+    </div>
+
+    <!-- Font Awesome JavaScript (for icon animations like fa-fade) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+    <!-- Embedded JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.querySelector('.carousel');
+            const carouselItems = document.querySelectorAll('.carousel__item');
+            const readMoreButtons = document.querySelectorAll('.card__button[data-action="open-modal"]');
+            const courseModal = document.getElementById('courseModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modalCourseTitle = document.getElementById('modalCourseTitle');
+            const modalCourseDescription = document.getElementById('modalCourseDescription');
+
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let autoPlayInterval;
+            let isDragging = false; // Flag to distinguish drag from click
+
+            // Course Details Data (You can expand this with more details)
+            const courseDetails = {
+                "arduino": {
+                    title: "كورس الأردوينو للأطفال: ابدأ رحلتك في عالم الروبوتات!",
+                    description: `
+                        تعلم أساسيات البرمجة والدوائر الإلكترونية بطريقة ممتعة وتفاعلية.
+                        صمم روبوتات ومشاريع إلكترونية بسيطة خطوة بخطوة.
+                        تنمية مهارات التفكير المنطقي وحل المشكلات والإبداع.
+                        مناسب للأطفال من عمر 8 سنوات فما فوق.
+                        لا يتطلب أي خبرة سابقة في البرمجة أو الإلكترونيات.
+                    `
+                },
+                "htmlcss": {
+                    title: "كورس HTML & CSS للأطفال: صمم موقعك الأول الآن!",
+                    description: `
+                        اكتشف عالم تصميم الويب وتعلم كيفية بناء صفحات الإنترنت.
+                        تعلم لغتي HTML (هيكل الصفحة) و CSS (تنسيق الصفحة) بطريقة مبسطة.
+                        قم بإنشاء صفحات ويب خاصة بك وأضف إليها النصوص والصور والألوان.
+                        مناسب للأطفال من عمر 7 سنوات فما فوق.
+                        بوابة رائعة لدخول عالم تطوير الويب.
+                    `
+                },
+                "bootstrap": {
+                    title: "كورس Bootstrap للأطفال: مواقع متجاوبة لكل الشاشات!",
+                    description: `
+                        تعلم إطار عمل Bootstrap الشهير لإنشاء مواقع ويب احترافية ومتجاوبة.
+                        اجعل موقعك يبدو رائعًا على أجهزة الكمبيوتر، التابلت، والهواتف الذكية.
+                        استخدم مكونات جاهزة لتصميم سريع وفعال.
+                        مناسب للأطفال من عمر 7 سنوات فما فوق.
+                        يشترط: معرفة أساسيات HTML و CSS.
+                    `
+                },
+                "scratch": {
+                    title: "كورس سكراتش: اصنع ألعابك وقصصك التفاعلية!",
+                    description: `
+                        برنامج سكراتش هو بيئة برمجة مرئية وممتعة مصممة خصيصًا للأطفال.
+                        تعلم أساسيات البرمجة عن طريق سحب وإفلات الكتل البرمجية.
+                        صمم ألعابك الخاصة، قصصًا تفاعلية، ورسومًا متحركة.
+                        تنمية التفكير الإبداعي والمنطقي ومهارات حل المشكلات.
+                        مناسب للأطفال من عمر 6 سنوات فما فوق.
+                    `
+                },
+                "python": {
+                    title: "كورس بايثون للأطفال: خطوتك الأولى في عالم البرمجة الحقيقي!",
+                    description: `
+                        تعلم لغة بايثون، واحدة من أشهر لغات البرمجة وأكثرها استخدامًا في العالم.
+                        ابدأ من الأساسيات وصولاً إلى بناء مشاريع برمجية حقيقية.
+                        تنمية مهارات التفكير الحسابي والتحليلي.
+                        مناسب للأطفال من عمر 8 سنوات فما فوق.
+                        يتم التركيز على التطبيق العملي والمشاريع التفاعلية.
+                    `
+                },
+                "icdl": {
+                    title: "كورس ICDL للأطفال: إتقان أساسيات الكمبيوتر!",
+                    description: `
+                        تعلم المهارات الأساسية لاستخدام الكمبيوتر والبرامج المكتبية.
+                        إتقان برامج Microsoft Word (معالجة النصوص)، Excel (الجداول الحسابية)، و PowerPoint (العروض التقديمية).
+                        تنمية مهارات البحث على الإنترنت والاستخدام الآمن للكمبيوتر.
+                        مناسب للأطفال من عمر 7 سنوات فما فوق.
+                        يساعد الأطفال على الاستعداد للمتطلبات الرقمية للمستقبل.
+                    `
+                },
+                "coming-soon": {
+                    title: "ترقبوا المزيد من الكورسات المثيرة!",
+                    description: `
+                        نحن نعمل باستمرار على إضافة كورسات جديدة ومبتكرة لتنمية مهارات أطفالكم في مجالات التكنولوجيا والبرمجة.
+                        تابعونا لمعرفة أحدث الإضافات!
+                    `
+                }
+            };
+
+            // --- Carousel Dragging Functionality ---
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                isDragging = false; // Reset dragging flag at the start of a new interaction
+                carousel.classList.add('active-drag');
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+                stopAutoPlay(); // Stop auto-play when user interacts
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                if (isDown) { // Only resume if mouse was down and left
+                    isDown = false;
+                    carousel.classList.remove('active-drag');
+                    startAutoPlay(); // Resume auto-play
+                }
+            });
+
+            carousel.addEventListener('mouseup', (e) => {
+                isDown = false;
+                carousel.classList.remove('active-drag');
+                startAutoPlay(); // Resume auto-play
+
+                // The isDragging flag is set in mousemove. If mouseup happens without mousemove, it's a click.
+                // If mousemove happened, isDragging will be true.
+            });
+
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 0.8; // Adjusted multiplier for smoother, less sensitive drag
+                carousel.scrollLeft = scrollLeft - walk;
+                // Set isDragging to true if the mouse moves while the button is down
+                if (Math.abs(x - startX) > 5) { // Only consider it a drag if moved more than 5px
+                    isDragging = true;
+                }
+            });
+
+            // --- Auto-play Functionality ---
+            const startAutoPlay = () => {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = setInterval(() => {
+                    const item = carousel.querySelector('.carousel__item');
+                    if (!item) {
+                        stopAutoPlay();
+                        return;
+                    }
+                    const gap = parseFloat(getComputedStyle(carousel).gap) || 0;
+                    const itemWidth = item.offsetWidth + gap;
+                    const currentScroll = carousel.scrollLeft;
+                    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+
+                    if (currentScroll + itemWidth >= maxScroll) {
+                        carousel.scrollTo({
+                            left: 0,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        carousel.scrollBy({
+                            left: itemWidth,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 6000);
+            };
+
+            const stopAutoPlay = () => {
+                clearInterval(autoPlayInterval);
+            };
+
+            carousel.addEventListener('mouseenter', stopAutoPlay);
+            carousel.addEventListener('mouseleave', startAutoPlay);
+            carousel.addEventListener('focusin', stopAutoPlay);
+            carousel.addEventListener('focusout', startAutoPlay);
+
+            // --- Active Item Highlighting ---
+            const updateActiveItem = () => {
+                const items = document.querySelectorAll('.carousel__item');
+                const carouselRect = carousel.getBoundingClientRect();
+                const carouselCenter = carouselRect.left + carouselRect.width / 2;
+
+                items.forEach(item => {
+                    const itemRect = item.getBoundingClientRect();
+                    const itemCenter = itemRect.left + itemRect.width / 2;
+
+                    const threshold = itemRect.width * 0.4;
+                    if (Math.abs(carouselCenter - itemCenter) < threshold) {
+                        item.classList.add('is-active');
+                    } else {
+                        item.classList.remove('is-active');
+                    }
+                });
+            };
+
+            let scrollTimeout;
+            carousel.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(updateActiveItem, 100);
+            });
+
+            // --- Click-to-Reveal Card Functionality ---
+            carouselItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    // Prevent click action if it was a drag
+                    if (isDragging) {
+                        e.preventDefault(); // Prevent default click behavior
+                        isDragging = false; // Reset flag
+                        return;
+                    }
+
+                    const card = item.querySelector('.card');
+                    
+                    // Close any other open cards first
+                    document.querySelectorAll('.card.is-revealed').forEach(openCard => {
+                        if (openCard !== card) {
+                            openCard.classList.remove('is-revealed');
+                        }
+                    });
+
+                    // Toggle the 'is-revealed' class on the clicked card
+                    card.classList.toggle('is-revealed');
+                });
+            });
+
+            // Close card when clicking outside of any card
+            document.addEventListener('click', (e) => {
+                const clickedInsideCarouselItem = e.target.closest('.carousel__item');
+                if (!clickedInsideCarouselItem) {
+                    document.querySelectorAll('.card.is-revealed').forEach(openCard => {
+                        openCard.classList.remove('is-revealed');
+                    });
+                }
+            });
+
+            // --- Modal Functionality ---
+            const openModal = (courseId) => {
+                const details = courseDetails[courseId];
+                if (details) {
+                    modalCourseTitle.textContent = details.title;
+                    modalCourseDescription.textContent = details.description;
+                    // Set direction for Arabic text in modal
+                    if (details.description.match(/[\u0600-\u06FF]/)) { // Check for Arabic characters
+                        modalCourseDescription.setAttribute('dir', 'rtl');
+                        modalCourseTitle.setAttribute('dir', 'rtl');
+                    } else {
+                        modalCourseDescription.removeAttribute('dir');
+                        modalCourseTitle.removeAttribute('dir');
+                    }
+                    courseModal.classList.remove('closing'); // Ensure closing animation is not active
+                    courseModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling body
+                }
+            };
+
+            const closeModal = () => {
+                courseModal.classList.add('closing'); // Start closing animation
+                // Wait for the animation to finish before hiding the modal completely
+                courseModal.addEventListener('transitionend', function handler() {
+                    courseModal.classList.remove('active');
+                    courseModal.classList.remove('closing'); // Remove closing class after animation
+                    document.body.style.overflow = ''; // Restore body scrolling
+                    courseModal.removeEventListener('transitionend', handler); // Clean up listener
+                });
+            };
+
+            readMoreButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default link behavior
+                    const courseId = e.target.closest('.carousel__item').dataset.courseId;
+                    openModal(courseId);
+                });
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+
+            // Close modal when clicking outside the content
+            courseModal.addEventListener('click', (e) => {
+                if (e.target === courseModal) { // Only if click is directly on the overlay
+                    closeModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && courseModal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
+
+            // --- Initializations ---
+            startAutoPlay(); // Start auto-play on load
+            updateActiveItem(); // Set initial active item
+        });
+    </script>
 </body>
 </html>
