@@ -990,7 +990,8 @@
             <button class="modal-close-button" id="closeModalBtn">&times;</button>
             <h3 class="modal-title" id="modalCourseTitle"></h3>
             <p class="modal-description" id="modalCourseDescription"></p>
-            <a href="https://wa.me/+201022613174" class="modal-contact-button" target="_blank" data-key="modalContactBtn">تواصل معنا عبر واتساب</a>
+            <!-- WhatsApp button with dynamic message -->
+            <a href="#" class="modal-contact-button" id="whatsappContactBtn" target="_blank" data-key="modalContactBtn">تواصل معنا عبر واتساب</a>
         </div>
     </div>
 
@@ -1123,7 +1124,7 @@
             const closeModalBtn = document.getElementById('closeModalBtn');
             const modalCourseTitle = document.getElementById('modalCourseTitle');
             const modalCourseDescription = document.getElementById('modalCourseDescription');
-            const modalContactBtn = document.querySelector('.modal-contact-button'); // Get the contact button in modal
+            const whatsappContactBtn = document.getElementById('whatsappContactBtn'); // Get the WhatsApp button
 
             const prevBtn = document.querySelector('.prev-btn');
             const nextBtn = document.querySelector('.next-btn');
@@ -1161,6 +1162,7 @@
                     contactUsLink: 'Contact Us',
                     copyrightText: '© 2025 Embedded_EG | All Rights Reserved',
                     modalContactBtn: 'Contact us via WhatsApp',
+                    whatsappMessagePrefix: 'Hello, I am interested in the course: ', // New: WhatsApp message prefix
                     // Full descriptions for modal
                     arduinoFullDesc: `
                         This course introduces children to the exciting world of programming and electronics using Arduino. They will learn:
@@ -1214,8 +1216,8 @@
                 'ar': {
                     pageTitle: 'كورسات Embedded EG',
                     langToggleText: 'English',
-                    headerPrefix: 'كورسات',
-                    headerSuffix: 'Embedded EG',
+                    headerPrefix: 'Embedded EG',
+                    headerSuffix: 'كورسات',
                     arduinoTitle: 'كورس الأردوينو للأطفال',
                     arduinoShortDesc: '- علم ابنك البرمجة و الدوائر الالكترونية و صناعة الروبوتات 💻\n- مناسب من عمر ٨ سنوات 🧒',
                     htmlcssTitle: 'HTML & CSS للأطفال',
@@ -1234,6 +1236,7 @@
                     contactUsLink: 'تواصل معنا',
                     copyrightText: '© 2025 Embedded_EG | جميع الحقوق محفوظة',
                     modalContactBtn: 'تواصل معنا عبر واتساب',
+                    whatsappMessagePrefix: 'السلام عليكم، أنا مهتم بكورس: ', // New: WhatsApp message prefix
                     // Full descriptions for modal
                     arduinoFullDesc: `
                         يقدم هذا الكورس للأطفال عالمًا مثيرًا من البرمجة والإلكترونيات باستخدام الأردوينو. سيتعلمون:
@@ -1329,9 +1332,9 @@
                 });
 
                 // Update modal contact button text
-                if (modalContactBtn && translations[lang]['modalContactBtn']) {
-                    modalContactBtn.textContent = translations[lang]['modalContactBtn'];
-                    modalContactBtn.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+                if (whatsappContactBtn && translations[lang]['modalContactBtn']) {
+                    whatsappContactBtn.textContent = translations[lang]['modalContactBtn'];
+                    whatsappContactBtn.dir = (lang === 'ar') ? 'rtl' : 'ltr';
                 }
 
                 // Update language toggle button text
@@ -1520,7 +1523,7 @@
                 }
             });
 
-            // --- Modal Functionality (updated to use translations) ---
+            // --- Modal Functionality (updated to use translations and WhatsApp message) ---
             const openModal = (courseId) => {
                 const currentLang = htmlTag.lang;
                 const fullDescKey = `${courseId}FullDesc`;
@@ -1541,6 +1544,13 @@
                         modalCourseDescription.removeAttribute('dir');
                         modalCourseTitle.removeAttribute('dir');
                     }
+
+                    // Set WhatsApp message
+                    const whatsappNumber = '+201022613174'; // Your WhatsApp number
+                    const messagePrefix = translations[currentLang]['whatsappMessagePrefix'];
+                    const courseNameForWhatsapp = title; // Use the course title for the message
+                    const whatsappMessage = encodeURIComponent(messagePrefix + courseNameForWhatsapp);
+                    whatsappContactBtn.href = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
                     
                     courseModal.classList.remove('closing');
                     courseModal.classList.add('active');
@@ -1551,6 +1561,14 @@
                     modalCourseDescription.textContent = translations[currentLang]['comingSoonFullDesc'] || translations[currentLang]['comingSoonTitle']; // Use full desc if available, else title
                     modalCourseDescription.removeAttribute('dir'); // Default to LTR for generic message
                     modalCourseTitle.removeAttribute('dir');
+
+                    // Set WhatsApp message for "Coming Soon"
+                    const whatsappNumber = '+201022613174';
+                    const messagePrefix = translations[currentLang]['whatsappMessagePrefix'];
+                    const courseNameForWhatsapp = translations[currentLang]['comingSoonTitle'];
+                    const whatsappMessage = encodeURIComponent(messagePrefix + courseNameForWhatsapp);
+                    whatsappContactBtn.href = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
                     courseModal.classList.remove('closing');
                     courseModal.classList.add('active');
                     document.body.style.overflow = 'hidden';
